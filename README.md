@@ -17,6 +17,26 @@ Déploiement rapide (Vercel + Supabase free tiers) :
 4. Lancer `npm install` puis `npm run dev` localement pour tester.
 5. Sur Supabase, activez Realtime pour les tables messages si nécessaire.
 
+Variables d'environnement requises
+
+Le projet attend les variables suivantes (à ajouter dans Vercel > Settings > Environment Variables ou dans un fichier .env.local pour le développement local) :
+
+- NEXT_PUBLIC_SUPABASE_URL — l'URL de votre instance Supabase (ex: https://xxxxx.supabase.co)
+- NEXT_PUBLIC_SUPABASE_ANON_KEY — la clé anonyme publique Supabase (NE PAS exposer la clé `service_role` côté client)
+
+Optionnel (uniquement pour les fonctions server-side) :
+- SUPABASE_SERVICE_ROLE_KEY — clé service_role (ne pas mettre côté client)
+
+Exemple local (.env.local) — NE PAS committer les valeurs :
+
+```
+NEXT_PUBLIC_SUPABASE_URL=https://xxxxx.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+```
+
+Notes :
+- Si vous déployez sur GitHub Pages via `next export`, les fonctionnalités realtime et auth risquent de ne pas fonctionner correctement. Pour une application dynamique (auth + realtime) utilisez Vercel ou une plateforme capable d'héberger une app Next.js non statique.
+
 Notes sécurité / modération :
 - Bloquer emails jetables (lib au niveau du backend).
 - Pas de scan d'images payant — utiliser workflow de signalement et suppression manuelle.
